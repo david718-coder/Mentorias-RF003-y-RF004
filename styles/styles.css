@@ -1,0 +1,8 @@
+h3 {
+    color: red;
+    font-family: 'Courier New', Courier, monospace;
+    text-shadow: 2px black;
+}
+body {
+    background-color:rgb(35, 145, 182);
+}

@@ -1,26 +1,28 @@
 body {
     background-color: rgb(27, 113, 142);
+    margin: 0;
 }
 fieldset {
   border: 2px solid #570544;
-  width: 40%;
-  margin: 0;
+  
   text-align: center;
   box-sizing: border-box;
-  border-radius: 150px;
+  border-radius: 20px;
   border-width: 10px;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 20px;
   background-color: rgb(254, 254, 254);
+  max-width: 400px;
+  width: 100%;
   
 }
 .image  {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: right;
+  align-items: right;
   max-width: 100%;
-  height: auto;
+  height: right;
 }
 
 legend {
@@ -37,4 +39,35 @@ legend {
 .cta { 
     background:#007BFF; color:#fff; padding:1rem 2rem; border:none; cursor:pointer; 
 }
-
+.container {
+  display: flex;
+  height: 100vh;
+}
+.formulario {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+.formulario {
+      background-color: #f0f0f0;
+      flex: 1;
+}
+.imagen {
+      background-color: #d0e0ff;
+      flex: 1;
+      display: flex;
+}
+img {
+      max-width: 80%;
+      height: auto;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+input, button {
+    margin: 10px 0;
+    padding: 10px;
+}

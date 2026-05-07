@@ -16,23 +16,14 @@ fieldset {
   width: 100%;
   
 }
-.image  {
-  flex: 1;
-  display: flex;
-  justify-content: right;
-  align-items: right;
-  max-width: 100%;
-  height: right;
-}
+
 
 legend {
   font-weight: bold;
   color: #080808;
   padding: 0 10px;
 }
-.reg {
-  background:rgb(27, 113, 142); color:#121010; padding:1rem; text-align:center; 
-}
+
 .p {
   text-align: center;
 }
@@ -48,20 +39,15 @@ legend {
       display: flex;
       justify-content: center;
       align-items: center;
-}
-.formulario {
       background-color: #f0f0f0;
-      flex: 1;
 }
+
 .imagen {
       background-color: #d0e0ff;
       flex: 1;
       display: flex;
 }
-img {
-      max-width: 80%;
-      height: auto;
-}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -71,3 +57,6 @@ input, button {
     margin: 10px 0;
     padding: 10px;
 }
+header { 
+        background:rgb(27, 113, 142); color:#ffffff; padding:1rem; text-align:center; 
+    }

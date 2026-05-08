@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta de Satisfacción — Carnes J Y D</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --amber-dark: #633806;
+    --amber-mid: #EF9F27;
+    --green: #3B6D11;
+    --red: #A32D2D;
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f1efe8;
+    --border: rgba(0,0,0,0.12);
+    --border2: rgba(0,0,0,0.22);
+    --text: #1a1a18;
+    --muted: #5f5e5a;
+    --radius: 10px;
+    --radius-sm: 7px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .wrap { max-width: 660px; margin: 0 auto; }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--amber-dark);
+  }
+
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: var(--amber);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 20px;
+  }
+
+  .nav-btn {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 7px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+    transition: background .15s;
+  }
+  .nav-btn:hover { background: var(--surface2); }
+  .nav-btn.amber { background: var(--amber); color: white; border-color: var(--amber); }
+  .nav-btn.amber:hover { opacity: .9; }
+  .nav-btn.danger { color: var(--red); border-color: rgba(163,45,45,.3); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--amber-light);
+    color: var(--amber-dark);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  h1 { font-size: 21px; font-weight: 600; margin-bottom: 6px; }
+  h2 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .muted { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+  .consent-box {
+    background: var(--surface2);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .consent-box strong { color: var(--text); }
+
+  .check-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-top: 1rem; cursor: pointer;
+  }
+  .check-row input[type=checkbox] {
+    width: 17px; height: 17px; margin-top: 2px;
+    accent-color: var(--amber); cursor: pointer; flex-shrink: 0;
+  }
+  .check-label { font-size: 13.5px; line-height: 1.5; }
+
+  .name-label { font-size: 14px; font-weight: 600; margin-bottom: 6px; display: block; }
+
+  input[type=text], textarea {
+    width: 100%;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 10px 13px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input[type=text]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(186,117,23,.15);
+  }
+  textarea { resize: vertical; min-height: 85px; }
+
+  .prog-bar-wrap { margin-top: .75rem; }
+  .prog-label { font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+  .prog-track { height: 5px; background: var(--border); border-radius: 3px; }
+  .prog-fill { height: 5px; background: var(--amber); border-radius: 3px; transition: width .3s; }
+
+  .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: .875rem; }
+  .q-num { font-size: 11px; font-weight: 700; color: var(--amber); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+  .q-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 1rem; line-height: 1.4; }
+
+  .opts { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    cursor: pointer; font-size: 14px; color: var(--text);
+    text-align: left; transition: all .12s;
+  }
+  .opt:hover { background: var(--surface2); border-color: var(--border2); }
+  .opt.sel { border-color: var(--amber); background: var(--amber-light); color: var(--amber-dark); font-weight: 500; }
+
+  .dot {
+    width: 17px; height: 17px; border-radius: 50%;
+    border: 1.5px solid var(--border2); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .12s;
+  }
+  .opt.sel .dot { background: var(--amber); border-color: var(--amber); }
+  .dot-in { width: 7px; height: 7px; border-radius: 50%; background: white; }
+
+  .stars { display: flex; gap: 7px; }
+  .star {
+    font-size: 30px; cursor: pointer; color: #d5d3c8;
+    background: none; border: none; padding: 0;
+    transition: color .1s, transform .1s; line-height: 1;
+  }
+  .star.on { color: var(--amber-mid); }
+  .star:hover { transform: scale(1.18); }
+
+  .scale-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .sc {
+    width: 43px; height: 43px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    cursor: pointer; font-size: 14px; font-weight: 600;
+    color: var(--muted); transition: all .12s;
+  }
+  .sc:hover { background: var(--surface2); border-color: var(--border2); }
+  .sc.sel { background: var(--amber); border-color: var(--amber); color: white; }
+  .sc-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--muted); }
+
+  .err { font-size: 12.5px; color: var(--red); margin-top: 6px; display: none; }
+
+  .btn-row { display: flex; justify-content: flex-end; gap: 8px; margin-top: .5rem; }
+  .btn-row.space { justify-content: space-between; }
+
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem; }
+  .metric { background: var(--surface2); border-radius: var(--radius-sm); padding: .875rem 1rem; }
+  .metric-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .metric-val { font-size: 24px; font-weight: 700; color: var(--text); }
+
+  .tab-row { display: flex; gap: 6px; margin-bottom: 1rem; }
+  .tab {
+    padding: 7px 16px; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 13px; cursor: pointer;
+    background: var(--surface); color: var(--muted); transition: all .12s;
+  }
+  .tab.active { background: var(--amber); border-color: var(--amber); color: white; }
+
+  .hist-row {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--border);
+  }
+  .hist-row:last-child { border-bottom: none; }
+  .hist-name { font-weight: 600; font-size: 14px; }
+  .hist-date { color: var(--muted); font-size: 12px; margin-top: 1px; }
+  .hist-score {
+    background: var(--amber-light); color: var(--amber-dark);
+    padding: 3px 9px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;
+  }
+  .detail-row {
+    display: flex; justify-content: space-between; gap: 8px;
+    padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px;
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-q { color: var(--muted); flex: 0 0 45%; }
+  .detail-a { color: var(--text); text-align: right; flex: 0 0 52%; }
+
+  .thanks-icon { font-size: 56px; margin-bottom: .75rem; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  @media (max-width: 500px) {
+    .metric-grid { grid-template-columns: repeat(2, 1fr); }
+    .sc { width: 36px; height: 36px; font-size: 13px; }
+    .star { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top-bar">
+    <div class="logo">
+      <div class="logo-icon">🥩</div>
+      Carnes J Y D
+    </div>
+    <button class="nav-btn" onclick="goHistory()" id="hist-nav-btn">Ver historial</button>
+  </div>
+
+  <!-- VISTA: Consentimiento -->
+  <div id="view-consent" class="view active">
+    <div class="card">
+      <div class="badge">🔒 Tratamiento de datos personales</div>
+      <h1>Antes de comenzar</h1>
+      <p class="muted">Lee el siguiente aviso y acéptalo para continuar con la encuesta.</p>
+
+      <div class="consent-box">
+        <strong>Finalidad y uso de la información</strong><br>
+        Los datos recopilados en esta encuesta — incluyendo tu nombre y respuestas — serán utilizados <strong>exclusivamente con fines académicos</strong> en el marco del trabajo de la materia <em>Pensamiento Creativo</em>, como parte de la aplicación de la metodología <strong>Design Thinking</strong> al caso de estudio <strong>Carnes J Y D</strong>, realizado en Medellín, Colombia (2025).<br><br>
+
+        <strong>Responsable del tratamiento:</strong> David Humberto Rojas Henao — estudiante. Medellín, Colombia.<br><br>
+
+        <strong>Datos que se recopilan:</strong> Nombre del encuestado y respuestas a las 15 preguntas de satisfacción.<br><br>
+
+        <strong>Almacenamiento:</strong> Las respuestas se guardan localmente en tu navegador (localStorage). No se envían a ningún servidor externo ni se comparten con terceros.<br><br>
+
+        <strong>Tus derechos:</strong> Tienes derecho a conocer, actualizar y solicitar la eliminación de tu información. Puedes borrar el historial en cualquier momento desde el panel de respuestas.<br><br>
+
+        <strong>Voluntariedad:</strong> Tu participación es completamente voluntaria. Puedes abandonar la encuesta en cualquier momento sin consecuencias.
+      </div>
+
+      <label class="check-row" for="consent-cb">
+        <input type="checkbox" id="consent-cb">
+        <span class="check-label">He leído y acepto el tratamiento de mis datos personales con los fines académicos descritos anteriormente.</span>
+      </label>
+      <div class="err" id="err-consent">Debes aceptar el tratamiento de datos para continuar.</div>
+    </div>
+    <div class="btn-row">
+      <button class="nav-btn amber" onclick="goName()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- VISTA: Nombre -->
+  <div id="view-name" class="view">
+    <div class="card">
+      <div class="badge">👤 Identificación</div>
+      <h1>¿Cuál es tu nombre?</h1>
+      <p class="muted" style="margin-bottom:1rem">Tu nombre nos permite identificar cada respuesta en el historial de resultados.</p>
+      <label class="name-label" for="name-field">Nombre completo <span style="color:var(--red)">*</span></label>
+      <input type="text" id="name-field" placeholder="Ej: María García López" maxlength="80">
+      <div class="err" id="err-name">Por favor ingresa tu nombre para continuar.</div>
+    </div>
+    <div class="btn-row space">
+      <button class="nav-btn" onclick="goConsent()">← Volver</button>
+      <button class="nav-btn amber" onclick="goSurvey()">Comenzar encuesta →</button>
+    </div>
+  </div>
+
+  <!-- VISTA: Encuesta -->
+  <div id="view-survey" class="view">
+    <div class="card">
+      <div class="badge">📋 Encuesta de satisfacción</div>
+      <h1>Hola, <span id="greeting"></span></h1>
+      <p class="muted">Responde las 15 preguntas. Todas son obligatorias excepto la última.</p>
+      <div class="prog-bar-wrap">
+        <div class="prog-label" id="prog-lbl">0 de 15 respondidas</div>
+        <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 1 de 15</div>
+      <div class="q-text">¿Con qué frecuencia compras en Carnes J Y D?</div>
+      <div class="opts" id="q1">
+        <button class="opt" onclick="pick('q1',this)"><span class="dot"><span class="dot-in"></span></span>Primera vez que compro</button>
+        <button class="opt" onclick="pick('q1',this)"><span class="dot"><span class="dot-in"></span></span>1 vez al mes</button>
+        <button class="opt" onclick="pick('q1',this)"><span class="dot"><span class="dot-in"></span></span>2 a 3 veces al mes</button>
+        <button class="opt" onclick="pick('q1',this)"><span class="dot"><span class="dot-in"></span></span>Todas las semanas</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 2 de 15</div>
+      <div class="q-text">¿Cómo calificarías la frescura y calidad del pollo que vendemos?</div>
+      <div class="stars" id="q2" data-v="0">
+        <button class="star" onclick="starPick('q2',1)" aria-label="1 estrella">★</button>
+        <button class="star" onclick="starPick('q2',2)" aria-label="2 estrellas">★</button>
+        <button class="star" onclick="starPick('q2',3)" aria-label="3 estrellas">★</button>
+        <button class="star" onclick="starPick('q2',4)" aria-label="4 estrellas">★</button>
+        <button class="star" onclick="starPick('q2',5)" aria-label="5 estrellas">★</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 3 de 15</div>
+      <div class="q-text">¿El precio de los chuzos te parece justo comparado con otros sitios?</div>
+      <div class="opts" id="q3">
+        <button class="opt" onclick="pick('q3',this)"><span class="dot"><span class="dot-in"></span></span>Muy asequible</button>
+        <button class="opt" onclick="pick('q3',this)"><span class="dot"><span class="dot-in"></span></span>Precio justo</button>
+        <button class="opt" onclick="pick('q3',this)"><span class="dot"><span class="dot-in"></span></span>Un poco costoso</button>
+        <button class="opt" onclick="pick('q3',this)"><span class="dot"><span class="dot-in"></span></span>Muy costoso</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 4 de 15</div>
+      <div class="q-text">¿Qué tan claro fue el precio antes de pesar el producto?</div>
+      <div class="scale-row" id="q4">
+        <button class="sc" onclick="scalePick('q4',this)">1</button>
+        <button class="sc" onclick="scalePick('q4',this)">2</button>
+        <button class="sc" onclick="scalePick('q4',this)">3</button>
+        <button class="sc" onclick="scalePick('q4',this)">4</button>
+        <button class="sc" onclick="scalePick('q4',this)">5</button>
+        <button class="sc" onclick="scalePick('q4',this)">6</button>
+        <button class="sc" onclick="scalePick('q4',this)">7</button>
+        <button class="sc" onclick="scalePick('q4',this)">8</button>
+        <button class="sc" onclick="scalePick('q4',this)">9</button>
+        <button class="sc" onclick="scalePick('q4',this)">10</button>
+      </div>
+      <div class="sc-labels"><span>Nada claro</span><span>Muy claro</span></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 5 de 15</div>
+      <div class="q-text">¿Cómo calificarías la limpieza e higiene del local?</div>
+      <div class="stars" id="q5" data-v="0">
+        <button class="star" onclick="starPick('q5',1)" aria-label="1 estrella">★</button>
+        <button class="star" onclick="starPick('q5',2)" aria-label="2 estrellas">★</button>
+        <button class="star" onclick="starPick('q5',3)" aria-label="3 estrellas">★</button>
+        <button class="star" onclick="starPick('q5',4)" aria-label="4 estrellas">★</button>
+        <button class="star" onclick="starPick('q5',5)" aria-label="5 estrellas">★</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 6 de 15</div>
+      <div class="q-text">¿El vendedor te atendió con amabilidad y calidez?</div>
+      <div class="opts" id="q6">
+        <button class="opt" onclick="pick('q6',this)"><span class="dot"><span class="dot-in"></span></span>Sí, siempre me tratan muy bien</button>
+        <button class="opt" onclick="pick('q6',this)"><span class="dot"><span class="dot-in"></span></span>La atención fue normal</button>
+        <button class="opt" onclick="pick('q6',this)"><span class="dot"><span class="dot-in"></span></span>Podría mejorar la atención</button>
+        <button class="opt" onclick="pick('q6',this)"><span class="dot"><span class="dot-in"></span></span>La atención fue deficiente</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 7 de 15</div>
+      <div class="q-text">¿El empaque fue adecuado para transportar el producto sin derrames?</div>
+      <div class="opts" id="q7">
+        <button class="opt" onclick="pick('q7',this)"><span class="dot"><span class="dot-in"></span></span>Sí, muy buen empaque</button>
+        <button class="opt" onclick="pick('q7',this)"><span class="dot"><span class="dot-in"></span></span>Regular, podría mejorar</button>
+        <button class="opt" onclick="pick('q7',this)"><span class="dot"><span class="dot-in"></span></span>No, el empaque fue deficiente</button>
+        <button class="opt" onclick="pick('q7',this)"><span class="dot"><span class="dot-in"></span></span>No aplica (compré en el local)</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 8 de 15</div>
+      <div class="q-text">¿Siempre encontraste el producto disponible cuando lo necesitabas?</div>
+      <div class="opts" id="q8">
+        <button class="opt" onclick="pick('q8',this)"><span class="dot"><span class="dot-in"></span></span>Siempre hay producto disponible</button>
+        <button class="opt" onclick="pick('q8',this)"><span class="dot"><span class="dot-in"></span></span>A veces no hay suficiente variedad</button>
+        <button class="opt" onclick="pick('q8',this)"><span class="dot"><span class="dot-in"></span></span>Me ha tocado irme sin comprar</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 9 de 15</div>
+      <div class="q-text">¿Te gustaría que el negocio ofreciera servicio de domicilio?</div>
+      <div class="opts" id="q9">
+        <button class="opt" onclick="pick('q9',this)"><span class="dot"><span class="dot-in"></span></span>Sí, lo usaría con frecuencia</button>
+        <button class="opt" onclick="pick('q9',this)"><span class="dot"><span class="dot-in"></span></span>Tal vez, dependiendo del costo</button>
+        <button class="opt" onclick="pick('q9',this)"><span class="dot"><span class="dot-in"></span></span>Prefiero ir al local</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 10 de 15</div>
+      <div class="q-text">¿Qué nueva opción te gustaría que ofreciéramos?</div>
+      <div class="opts" id="q10">
+        <button class="opt" onclick="pick('q10',this)"><span class="dot"><span class="dot-in"></span></span>Chuzos marinados / adobados listos para cocinar</button>
+        <button class="opt" onclick="pick('q10',this)"><span class="dot"><span class="dot-in"></span></span>Kits de diferentes tamaños (para 2, 4 u 8 personas)</button>
+        <button class="opt" onclick="pick('q10',this)"><span class="dot"><span class="dot-in"></span></span>Catálogo semanal con precios por WhatsApp</button>
+        <button class="opt" onclick="pick('q10',this)"><span class="dot"><span class="dot-in"></span></span>Programa de cliente frecuente con descuentos</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 11 de 15</div>
+      <div class="q-text">¿Cómo te enteraste de Carnes J Y D por primera vez?</div>
+      <div class="opts" id="q11">
+        <button class="opt" onclick="pick('q11',this)"><span class="dot"><span class="dot-in"></span></span>Recomendación de un vecino o familiar</button>
+        <button class="opt" onclick="pick('q11',this)"><span class="dot"><span class="dot-in"></span></span>Chat del barrio / WhatsApp</button>
+        <button class="opt" onclick="pick('q11',this)"><span class="dot"><span class="dot-in"></span></span>Redes sociales (Instagram / Facebook)</button>
+        <button class="opt" onclick="pick('q11',this)"><span class="dot"><span class="dot-in"></span></span>Pasé por el local y entré</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 12 de 15</div>
+      <div class="q-text">¿Qué tan probable es que recomiendes Carnes J Y D a un amigo o familiar?</div>
+      <div class="scale-row" id="q12">
+        <button class="sc" onclick="scalePick('q12',this)">1</button>
+        <button class="sc" onclick="scalePick('q12',this)">2</button>
+        <button class="sc" onclick="scalePick('q12',this)">3</button>
+        <button class="sc" onclick="scalePick('q12',this)">4</button>
+        <button class="sc" onclick="scalePick('q12',this)">5</button>
+        <button class="sc" onclick="scalePick('q12',this)">6</button>
+        <button class="sc" onclick="scalePick('q12',this)">7</button>
+        <button class="sc" onclick="scalePick('q12',this)">8</button>
+        <button class="sc" onclick="scalePick('q12',this)">9</button>
+        <button class="sc" onclick="scalePick('q12',this)">10</button>
+      </div>
+      <div class="sc-labels"><span>Nada probable</span><span>Totalmente seguro</span></div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 13 de 15</div>
+      <div class="q-text">¿Qué es lo que más valoras de comprar en Carnes J Y D?</div>
+      <div class="opts" id="q13">
+        <button class="opt" onclick="pick('q13',this)"><span class="dot"><span class="dot-in"></span></span>La frescura y calidad del producto</button>
+        <button class="opt" onclick="pick('q13',this)"><span class="dot"><span class="dot-in"></span></span>El precio asequible</button>
+        <button class="opt" onclick="pick('q13',this)"><span class="dot"><span class="dot-in"></span></span>La cercanía al barrio</button>
+        <button class="opt" onclick="pick('q13',this)"><span class="dot"><span class="dot-in"></span></span>La atención personalizada</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 14 de 15</div>
+      <div class="q-text">De manera general, ¿qué tan satisfecho/a estás con Carnes J Y D?</div>
+      <div class="stars" id="q14" data-v="0">
+        <button class="star" onclick="starPick('q14',1)" aria-label="1 estrella">★</button>
+        <button class="star" onclick="starPick('q14',2)" aria-label="2 estrellas">★</button>
+        <button class="star" onclick="starPick('q14',3)" aria-label="3 estrellas">★</button>
+        <button class="star" onclick="starPick('q14',4)" aria-label="4 estrellas">★</button>
+        <button class="star" onclick="starPick('q14',5)" aria-label="5 estrellas">★</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-num">Pregunta 15 de 15 — Opcional</div>
+      <div class="q-text">¿Tienes alguna sugerencia para mejorar nuestro servicio?</div>
+      <textarea id="q15" placeholder="Escribe aquí tu comentario..." oninput="updateProg()"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="nav-btn amber" onclick="submitSurvey()">📤 Enviar respuestas</button>
+    </div>
+  </div>
+
+  <!-- VISTA: Gracias -->
+  <div id="view-thanks" class="view">
+    <div class="card" style="text-align:center;padding:3rem 1.5rem">
+      <div class="thanks-icon">✅</div>
+      <h1>¡Gracias, <span id="thanks-name"></span>!</h1>
+      <p class="muted" style="margin:.75rem 0 2rem">Tu opinión quedó guardada. Nos ayuda a seguir mejorando cada día para ofrecerte el mejor producto y servicio.</p>
+      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+        <button class="nav-btn amber" onclick="goHistory()">📊 Ver historial de respuestas</button>
+        <button class="nav-btn" onclick="newSurvey()">➕ Nueva encuesta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA: Historial -->
+  <div id="view-history" class="view">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;gap:10px">
+        <div>
+          <div class="badge">📊 Historial de respuestas</div>
+          <h1>Resultados acumulados</h1>
+        </div>
+        <button class="nav-btn amber" onclick="newSurvey()" style="white-space:nowrap">➕ Nueva</button>
+      </div>
+
+      <div class="metric-grid" id="hist-metrics">
+        <div class="metric"><div class="metric-label">Encuestas recibidas</div><div class="metric-val" id="m-count">0</div></div>
+        <div class="metric"><div class="metric-label">Satisfacción promedio</div><div class="metric-val" id="m-avg">—</div></div>
+        <div class="metric"><div class="metric-label">Promotores NPS ≥9</div><div class="metric-val" id="m-nps">0</div></div>
+      </div>
+
+      <div class="tab-row">
+        <button class="tab active" id="tab-list" onclick="switchTab('list')">Listado</button>
+        <button class="tab" id="tab-detail" onclick="switchTab('detail')">Detalle</button>
+      </div>
+
+      <div id="hist-list"></div>
+      <div id="hist-detail" style="display:none"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="nav-btn danger" onclick="clearHistory()">🗑 Borrar todo el historial</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DB_KEY = 'cjyd_encuesta_v1';
+let answers = {};
+let currentName = '';
+
+function setView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('hist-nav-btn').style.display = id === 'view-history' ? 'none' : '';
+}
+
+function goConsent() { setView('view-consent'); }
+function goHistory() { renderHistory(); setView('view-history'); }
+
+function goName() {
+  if (!document.getElementById('consent-cb').checked) {
+    document.getElementById('err-consent').style.display = 'block';
+    return;
+  }
+  document.getElementById('err-consent').style.display = 'none';
+  setView('view-name');
+}
+
+function goSurvey() {
+  const n = document.getElementById('name-field').value.trim();
+  if (!n) { document.getElementById('err-name').style.display = 'block'; return; }
+  document.getElementById('err-name').style.display = 'none';
+  currentName = n;
+  answers = {};
+  document.getElementById('greeting').textContent = n.split(' ')[0];
+  resetInputs();
+  updateProg();
+  setView('view-survey');
+}
+
+function resetInputs() {
+  ['q1','q3','q6','q7','q8','q9','q10','q11','q13'].forEach(q => {
+    const el = document.getElementById(q);
+    if (el) el.querySelectorAll('.opt').forEach(b => b.classList.remove('sel'));
+  });
+  ['q2','q5','q14'].forEach(q => {
+    const el = document.getElementById(q);
+    if (el) { el.querySelectorAll('.star').forEach(s => s.classList.remove('on')); el.dataset.v = 0; }
+  });
+  ['q4','q12'].forEach(q => {
+    const el = document.getElementById(q);
+    if (el) el.querySelectorAll('.sc').forEach(b => b.classList.remove('sel'));
+  });
+  const ta = document.getElementById('q15');
+  if (ta) ta.value = '';
+}
+
+function pick(qid, btn) {
+  document.getElementById(qid).querySelectorAll('.opt').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  answers[qid] = btn.textContent.trim();
+  updateProg();
+}
+
+function starPick(qid, val) {
+  const c = document.getElementById(qid);
+  c.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('on', i < val));
+  c.dataset.v = val;
+  answers[qid] = val + ' ★';
+  updateProg();
+}
+
+function scalePick(qid, btn) {
+  document.getElementById(qid).querySelectorAll('.sc').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  answers[qid] = btn.textContent.trim() + '/10';
+  updateProg();
+}
+
+function updateProg() {
+  const q15val = document.getElementById('q15') ? document.getElementById('q15').value.trim() : '';
+  if (q15val) answers['q15'] = q15val;
+  else delete answers['q15'];
+  const count = Object.keys(answers).length;
+  document.getElementById('prog-lbl').textContent = count + ' de 15 respondidas';
+  document.getElementById('prog-fill').style.width = Math.round((count / 15) * 100) + '%';
+}
+
+function calcScore(ans) {
+  const scores = [];
+  ['q2','q5','q14'].forEach(k => { if (ans[k]) scores.push(parseInt(ans[k]) * 2); });
+  if (ans['q12']) scores.push(parseInt(ans['q12']));
+  if (ans['q4']) scores.push(parseInt(ans['q4']));
+  if (!scores.length) return 0;
+  const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+  return Math.round(avg * 10) / 10;
+}
+
+function loadDB() {
+  try { return JSON.parse(localStorage.getItem(DB_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveDB(data) {
+  localStorage.setItem(DB_KEY, JSON.stringify(data));
+}
+
+function submitSurvey() {
+  const q15val = document.getElementById('q15').value.trim();
+  if (q15val) answers['q15'] = q15val;
+  const required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14'];
+  const missing = required.filter(k => !answers[k]);
+  if (missing.length > 0) {
+    alert('Faltan ' + missing.length + ' pregunta(s) obligatoria(s). Por favor complétalas antes de enviar.');
+    return;
+  }
+  const now = new Date();
+  const record = {
+    name: currentName,
+    date: now.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' }),
+    answers: Object.assign({}, answers),
+    score: calcScore(answers)
+  };
+  const db = loadDB();
+  db.unshift(record);
+  saveDB(db);
+  document.getElementById('thanks-name').textContent = currentName.split(' ')[0];
+  setView('view-thanks');
+}
+
+function newSurvey() {
+  answers = {};
+  currentName = '';
+  document.getElementById('consent-cb').checked = false;
+  document.getElementById('name-field').value = '';
+  setView('view-consent');
+}
+
+const Q_LABELS = [
+  'Frecuencia de compra','Frescura y calidad del pollo','Precio vs. competencia',
+  'Claridad del precio antes de pesar','Limpieza e higiene del local','Calidad de la atención',
+  'Calidad del empaque','Disponibilidad del producto','Interés en domicilio',
+  'Nueva opción deseada','Cómo se enteró del negocio','Probabilidad de recomendar (NPS)',
+  'Lo más valorado','Satisfacción general','Comentario / sugerencia'
+];
+const Q_KEYS = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15'];
+
+function renderHistory() {
+  const db = loadDB();
+  document.getElementById('m-count').textContent = db.length;
+  if (db.length > 0) {
+    const avg = (db.reduce((s, r) => s + r.score, 0) / db.length).toFixed(1);
+    const nps = db.filter(r => parseInt((r.answers['q12'] || '0')) >= 9).length;
+    document.getElementById('m-avg').textContent = avg + '/10';
+    document.getElementById('m-nps').textContent = nps;
+  } else {
+    document.getElementById('m-avg').textContent = '—';
+    document.getElementById('m-nps').textContent = '0';
+  }
+
+  const listEl = document.getElementById('hist-list');
+  if (db.length === 0) {
+    listEl.innerHTML = '<p style="text-align:center;color:var(--muted);padding:1.5rem 0;font-size:14px">Aún no hay respuestas registradas.</p>';
+    document.getElementById('hist-detail').innerHTML = '';
+    return;
+  }
+
+  listEl.innerHTML = db.map((r, i) =>
+    '<div class="hist-row">' +
+      '<div><div class="hist-name">' + r.name + '</div><div class="hist-date">' + r.date + '</div></div>' +
+      '<div style="display:flex;align-items:center;gap:8px">' +
+        '<span class="hist-score">' + r.score + '/10</span>' +
+        '<button class="nav-btn" style="font-size:12px;padding:5px 11px" onclick="showDetail(' + i + ')">Ver detalle</button>' +
+      '</div>' +
+    '</div>'
+  ).join('');
+
+  renderDetail(db[0]);
+}
+
+function showDetail(i) {
+  const db = loadDB();
+  renderDetail(db[i]);
+  switchTab('detail');
+}
+
+function renderDetail(r) {
+  const el = document.getElementById('hist-detail');
+  el.innerHTML =
+    '<div style="margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)">' +
+      '<span style="font-weight:700;font-size:15px">' + r.name + '</span>' +
+      '<span style="font-size:12px;color:var(--muted);margin-left:8px">' + r.date + '</span>' +
+      '<span class="hist-score" style="margin-left:8px">' + r.score + '/10</span>' +
+    '</div>' +
+    Q_KEYS.map((k, i) => {
+      const v = r.answers[k];
+      if (!v) return '';
+      return '<div class="detail-row"><span class="detail-q">' + Q_LABELS[i] + '</span><span class="detail-a">' + v + '</span></div>';
+    }).join('');
+}
+
+function switchTab(tab) {
+  document.getElementById('tab-list').classList.toggle('active', tab === 'list');
+  document.getElementById('tab-detail').classList.toggle('active', tab === 'detail');
+  document.getElementById('hist-list').style.display = tab === 'list' ? 'block' : 'none';
+  document.getElementById('hist-detail').style.display = tab === 'detail' ? 'block' : 'none';
+}
+
+function clearHistory() {
+  if (!confirm('¿Seguro que quieres borrar todo el historial? Esta acción no se puede deshacer.')) return;
+  localStorage.removeItem(DB_KEY);
+  renderHistory();
+}
+</script>
+</body>
+</html>

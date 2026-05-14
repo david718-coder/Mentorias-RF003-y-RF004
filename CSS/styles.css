@@ -27,6 +27,26 @@ legend {
 .p {
   text-align: center;
 }
+.modal {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(42, 125, 65);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #6c1e1e;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  text-align: center;
+}
+
+.modal button {
+  margin-top: 10px;
+  background-color: rgb(5, 8, 7);
+  color: #ffffff;
+}
 .cta { 
     background:#007BFF; color:#fff; padding:1rem 2rem; border:none; cursor:pointer; 
 }

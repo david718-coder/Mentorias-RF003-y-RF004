@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sistema Escolar</title>
-
-<link rel="stylesheet" href="css/style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Animado</title>
+    <link rel="stylesheet" href="styles y scrip/styles.css">
 </head>
+
 <body>
 
-<div class="container">
+    <div class="container">
+        <div class="left-panel">
+            <div class="overlay"></div>
+            <div class="content-left">
+                <h1>Bienvenido</h1>
+                <p>
+                    “La educación es el arma más poderosa <br>
+                    para cambiar el mundo.”
+                </p>
+            </div>
+        </div>
+        <div class="right-panel">
+            <form class="login-form" id="loginForm">
+                <h2>Iniciar Sesión</h2>
 
-    <img 
-    class="logo"
-    src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
-    alt="logo">
+                <select required>
+                    <option value="" disabled selected>Selecciona tu rol</option>
+                    <option>Administrador</option>
+                    <option>Docente</option>
+                    <option>Estudiante</option>
+                </select>
 
-    <h1>Bienvenido</h1>
+                <input type="text" placeholder="Nombre" required>
+                <input type="password" placeholder="Contraseña" required>
 
-    <p>
-        Sistema de acceso escolar
-    </p>
+                <button type="submit" class="login-btn">
+                    <span>Entrar</span>
+                </button>
+            </form>
 
-    <a href="login-admin.html">
-        👨‍💼 Administrador
-    </a>
+            <!-- Pantalla animada -->
 
-    <a href="docente.html">
-        👨‍🏫 Docente
-    </a>
+            <div class="success-screen" id="successScreen">
+                <div class="loader"></div>
+                <h2>Ingresando...</h2>
+                <p>Bienvenido al sistema</p>
+            </div>
+        </div>
 
-    <a href="estudiante.html">
-        👨‍🎓 Estudiante
-    </a>
-
-    <div class="footer">
-        Plataforma educativa 2026
     </div>
 
-</div>
-
+    <script src="styles y scrip/scrip.js"></script>
 </body>
+
 </html>

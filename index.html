@@ -1,57 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Animado</title>
+    <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="styles y scrip/styles.css">
 </head>
-
 <body>
+    <div class="cuerpo">
+        <div class="div-container">
+            <!-- PANEL DE ROLES -->
+            <div class="divRolPanel-rol-panel" id="rolPanel">
+                <div class="div-titulo">
+                    <h1>Sistema Educativo</h1>
+                    <p>Selecciona tu rol</p>
+                </div>
 
-    <div class="container">
-        <div class="left-panel">
-            <div class="overlay"></div>
-            <div class="content-left">
-                <h1>Bienvenido</h1>
-                <p>
-                    “La educación es el arma más poderosa <br>
-                    para cambiar el mundo.”
-                </p>
+                <div class="roles">
+                    <div class="card" onclick="seleccionarRol('administrador')">
+                        <h2>👨‍💼</h2>
+                        <h3>Administrador</h3>
+                        <p>Gestiona usuarios y sistema</p>
+                    </div>
+
+                    <div class="card" onclick="seleccionarRol('docente')">
+                        <h2>👨‍🏫</h2>
+                        <h3>Docente</h3>
+                        <p>Administra cursos y notas</p>
+                    </div>
+
+                    <div class="card" onclick="seleccionarRol('estudiante')">
+                        <h2>👨‍🎓</h2>
+                        <h3>Estudiante</h3>
+                        <p>Consulta materias y progreso</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="right-panel">
-            <form class="login-form" id="loginForm">
-                <h2>Iniciar Sesión</h2>
 
-                <select required>
-                    <option value="" disabled selected>Selecciona tu rol</option>
-                    <option>Administrador</option>
-                    <option>Docente</option>
-                    <option>Estudiante</option>
-                </select>
+            <!-- PANEL LOGIN -->
+            <div class="divLoginPanel-login-panel" id="loginPanel" style="display: none;">
+                <button class="btn-atras" onclick="volverARoles()">← Atrás</button>
 
-                <input type="text" placeholder="Nombre" required>
-                <input type="password" placeholder="Contraseña" required>
+                <div class="login-izquierda">
+                    <div class="login-contenido-izq">
+                        <h1 class="bienvenido-texto">Bienvenido</h1>
+                        <p class="frase-texto">La educación es el arma más poderosa para cambiar el mundo.</p>
+                    </div>
+                </div>
 
-                <button type="submit" class="login-btn">
-                    <span>Entrar</span>
-                </button>
-            </form>
+                <div class="login-derecha">
+                    <div class="titulo-login">
+                        <h2>Iniciar Sesión</h2>
+                        <p id="rolSubtitulo">Administrador</p>
+                    </div>
 
-            <!-- Pantalla animada -->
+                    <form onsubmit="iniciarSesion(event)" id="formLogin">
+                        <div class="form-group">
+                            <label>Nombre de Usuario</label>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                placeholder="Ingresa tu nombre"
+                                required
+                            >
+                        </div>
 
-            <div class="success-screen" id="successScreen">
-                <div class="loader"></div>
-                <h2>Ingresando...</h2>
-                <p>Bienvenido al sistema</p>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                placeholder="Ingresa tu contraseña"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn-ingresar">Ingresar</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
+   
 
     <script src="styles y scrip/scrip.js"></script>
 </body>
-
 </html>

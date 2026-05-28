@@ -18,6 +18,21 @@ body {
     min-height: 100vh;
 }
 
+.video-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video-fondo video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .cuerpo {
     width: 100%;
     display: flex;
@@ -130,10 +145,25 @@ body {
 }
 
 .login-contenido-izq {
+   position: relative;
+    z-index: 2; /* Para que el texto esté encima de la imagen */
+    color: white;
     text-align: left;
     z-index: 2;
     position: relative;
 }
+
+
+.biblioteca-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
 
 .bienvenido-texto {
     font-size: 3.5rem;

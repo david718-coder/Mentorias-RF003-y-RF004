@@ -1,6 +1,4 @@
-/* ============================
-   VARIABLES Y CONFIGURACIÓN BASE
-   ============================ */
+
 :root {
     --primary-color: #3b82f6;
     --primary-dark: #1e40af;
@@ -27,9 +25,6 @@
     --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ============================
-   RESET Y ESTILOS GLOBALES
-   ============================ */
 * {
     margin: 0;
     padding: 0;
@@ -51,9 +46,6 @@ body {
     line-height: 1.6;
 }
 
-/* ============================
-   CONTENEDOR PRINCIPAL
-   ============================ */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -79,9 +71,6 @@ body {
     }
 }
 
-/* ============================
-   PANEL DE ROLES
-   ============================ */
 .panel-header {
     text-align: center;
     margin-bottom: 50px;
@@ -118,9 +107,6 @@ body {
     margin-top: 8px;
 }
 
-/* ============================
-   GRID DE ROLES
-   ============================ */
 .roles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -191,9 +177,6 @@ body {
     font-size: 0.95rem;
 }
 
-/* ============================
-   PANEL DE LOGIN
-   ============================ */
 .login-panel {
     max-width: 900px;
     padding: 0;
@@ -291,9 +274,6 @@ body {
     line-height: 1.6;
 }
 
-/* ============================
-   FORMULARIO
-   ============================ */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -332,9 +312,7 @@ body {
     color: var(--text-light);
 }
 
-/* ============================
-   BOTONES
-   ============================ */
+
 .btn-login {
     padding: 14px 20px;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
@@ -377,9 +355,6 @@ body {
     transform: translateY(0);
 }
 
-/* ============================
-   RESPONSIVE
-   ============================ */
 @media (max-width: 768px) {
     .panel-container {
         padding: 24px;
@@ -468,9 +443,6 @@ body {
     }
 }
 
-/* ============================
-   ANIMACIONES DE CARGA
-   ============================ */
 @keyframes slideInLeft {
     from {
         opacity: 0;

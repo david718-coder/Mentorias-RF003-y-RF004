@@ -1,89 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="styles y scrip/styles.css">
+   <link rel="stylesheet" href="solo estilos/styles (1).css">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Mentory Master</title>
+   <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .contenedor {
+      background: #6c404f;
+      margin-top: 30vh;
+      border: 3px solid rgb(122, 136, 164);
+      padding: 20px;
+      text-align: center;
+      width: 30%;                
+      box-sizing: border-box;
+    }
+    input, button {
+      width: 50%;
+      margin: 5px 0;
+    }
+   </style>
 </head>
-
 <body>
-    <div class="video-fondo">
-        <video autoplay muted loop>
-            <source src="./imagenes y video/mentoria.mp4" type="video/mp4">
-            Tu navegador no soporta el elemento de video.
-        </video>
-    </div>
-    <div class="cuerpo">
-        <div class="div-container">
-            <!-- PANEL DE ROLES -->
-            <div class="divRolPanel-rol-panel" id="rolPanel">
-                <div class="div-titulo">
-                    <h1>Sistema Educativo</h1>
-                    <p>Selecciona tu rol</p>
-                </div>
+  <div class="contenedor">
+    <h1>Solicitudes</h1>
 
-                <div class="roles">
-                    <div class="card" onclick="seleccionarRol('administrador')">
-                        <h2>👨‍💼</h2>
-                        <h3>Administrador</h3>
-                        <p>Gestiona usuarios y sistema</p>
-                    </div>
+    <form onsubmit="login(event)">
+      <label>Usuario:</label>
+      <select id="usuario" required>
+        <option value="" disabled selected>Seleccione...</option>
+        <option value="docente">Docente</option>
+        <option value="estudiante">Estudiante</option>
+      </select><br><br>
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
 
-                    <div class="card" onclick="seleccionarRol('docente')">
-                        <h2>👨‍🏫</h2>
-                        <h3>Docente</h3>
-                        <p>Administra cursos y notas</p>
-                    </div>
-
-                    <div class="card" onclick="seleccionarRol('estudiante')">
-                        <h2>👨‍🎓</h2>
-                        <h3>Estudiante</h3>
-                        <p>Consulta materias y progreso</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PANEL LOGIN -->
-            <div class="divLoginPanel-login-panel" id="loginPanel" style="display: none;">
-                <button class="btn-atras" onclick="volverARoles()">← Atrás</button>
-
-                <div class="login-izquierda">
-                    <img src="./imagenes y video/bibloteca.jpg" alt="Biblioteca" class="biblioteca-img">
-
-                    <div class="login-contenido-izq">
-                        <h1 class="bienvenido-texto">Bienvenido</h1>
-                        <p class="frase-texto">La educación es el arma más poderosa para cambiar el mundo.</p>
-                    </div>
-                </div>
-
-                <div class="login-derecha">
-                    <div class="titulo-login">
-                        <h2>Iniciar Sesión</h2>
-                        <p id="rolSubtitulo">Administrador</p>
-                    </div>
-
-                    <form onsubmit="iniciarSesion(event)" id="formLogin">
-                        <div class="form-group">
-                            <label>Nombre de Usuario</label>
-                            <input type="text" id="username" placeholder="Ingresa tu nombre" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Contraseña</label>
-                            <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
-                        </div>
-                        <div <button type="button" class="btn-ingresar" onclick="iniciarSesion(event)">Ingresar</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-    <script src="styles y scrip/scrip.js"></script>
+  <script>
+    function login(event){
+      event.preventDefault();
+      const usuario = document.getElementById("usuario").value;
+      if(usuario === "docente"){
+        window.location.href = "docente.html";
+      } else if(usuario === "estudiante"){
+        window.location.href = "estudiante.html";
+      } else {
+        alert("Seleccione un usuario válido");
+      }
+    }
+  </script>
 </body>
-
 </html>
+
+
+
